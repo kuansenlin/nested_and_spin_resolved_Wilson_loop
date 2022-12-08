@@ -269,6 +269,9 @@ assert out_data.shape[0]==plot_grid
 print("Save the results")
 
 # save the results
+with open(path_data+"/wannier_band_energy.pk",'wb') as f:
+    pickle.dump(array2._wannier_band_energy,f)
+
 with open(path_data+"/in_data.pk",'wb') as f:
     pickle.dump(in_data,f)
 
