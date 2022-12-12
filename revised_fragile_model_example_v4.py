@@ -315,16 +315,16 @@ print("\n")
 
 ## print out the results of the nested Wilson loop
 print("eigen-phases of nested Wilson loop over inner Wannier bands (in unit of pi):")
-for x in nested_inner:
-    print("{}".format(x/np.pi))
+for xin in nested_inner:
+    print("{}".format(xin/np.pi))
 
 print("summed eigen-phases of nested Wilson loop over inner Wannier bands (in unit of pi after mod 2pi): {}".format((np.mod(np.sum(nested_inner)+np.pi,2.0*np.pi)-np.pi)/np.pi))
 
 print("\n")
 
 print("eigen-phases of nested Wilson loop over outer Wannier bands (in unit of pi):")
-for x in nested_outer:
-    print("{}".format(x/np.pi))
+for xout in nested_outer:
+    print("{}".format(xout/np.pi))
 
 print("summed eigen-phases of nested Wilson loop over outer Wannier bands (in unit of pi after mod 2pi): {}".format((np.mod(np.sum(nested_outer)+np.pi,2.0*np.pi)-np.pi)/np.pi))
 
