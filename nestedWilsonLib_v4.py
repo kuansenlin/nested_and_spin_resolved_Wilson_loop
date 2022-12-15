@@ -70,6 +70,10 @@ class wannier_band_basis_array(object):
         #                       the wilson_loop_dir can still be chosen only between 0 and 1, for instance in this case if 
         #                       wilson_loop_dir=1, it means that the Wilson loop will be computed along the k-point entry with 41 grids
 
+        # check that the energy eigenstates have been obtained through solve_on_grid in energy_wf_array, which is the wf_array class in pythtb
+        if np.all(energy_wf_array._wfs==0.0+0.0*1j):
+            raise Exception("\n\nthe solve_on_grid in wf_array hasn't been implemented!!")
+        
         # store the energy_wf_array class 
         self._energy_wf_array=copy.deepcopy(energy_wf_array)
 
