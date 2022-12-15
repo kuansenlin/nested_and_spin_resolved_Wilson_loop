@@ -166,44 +166,6 @@ class wannier_band_basis_array(object):
         # store the wannier band basis here in the form _wfs[kx_index,ky_index, ... ,band,orb,spin]
         wfs_dim=wfs_dim.astype("int")
         self._wfs=np.zeros(wfs_dim,dtype=complex)
-
-        ### BELOW ARE CODE NOT USED
-        # # make sure the wilson_loop_dir is within the model._per
-        # if wilson_loop_dir not in model._per:
-        #     raise Exception("\n\nWilson loop can only be carried out along the periodic direction")
-
-        # # find which entry will the Wilson loop be computed along the wave function array energy_wf_array
-        # if (self._per)==1: # model with one periodic direction
-        #     self._array_entry_wilson_loop=0
-        #     self._mesh_arr=np.array([])
-        # elif (self._per)==2: # model with two periodic directions
-        #     self._array_entry_wilson_loop=self._per.index(wilson_loop_dir)
-        #     if self._array_entry_wilson_loop==0:
-        #         self._mesh_arr=np.array([self._mesh_arr_energy_band[1]])
-        #     elif self._array_entry_wilson_loop==1:
-        #         self._mesh_arr=np.array([self._mesh_arr_energy_band[0]])
-        #     else:
-        #         raise Exception("\n\nWrong wilson_loop_dir")
-        # elif (self._per)==3: # model with three periodic directions
-        #     self._array_entry_wilson_loop=self._per.index(wilson_loop_dir)
-        #     if self._array_entry_wilson_loop==0:
-        #         self._mesh_arr=np.array([self._mesh_arr_energy_band[1],self._mesh_arr_energy_band[2]])
-        #     elif self._array_entry_wilson_loop==1:
-        #         self._mesh_arr=np.array([self._mesh_arr_energy_band[0],self._mesh_arr_energy_band[2]])
-        #     elif self._array_entry_wilson_loop==2:
-        #         self._mesh_arr=np.array([self._mesh_arr_energy_band[0],self._mesh_arr_energy_band[1]])
-        #     else:
-        #         raise Exception("\n\nWrong wilson_loop_dir")
-
-        # # store the remaining periodic directions if we remove the wilson_loop_dir
-        # self._G_ind_list=(self._per).remove(wilson_loop_dir) # self._per is by default a list 
-
-        # # make sure that we start with a given energy_wf_array of a model with at least two periodic directions
-        # if self._dim_arr_energy_band < 2:
-        #     raise Exception("\n\nNeed at least two periodic directions")
-
-        # self._wilson_loop_matrix_array=np.zeros(np.append(np.append(wfs_dim,self._nsta),self._nsta),dtype=complex)
-        ### ABOVE ARE CODE NOT USED
     
     def solve_wannier_band_basis(self):
 
@@ -242,7 +204,6 @@ class wannier_band_basis_array(object):
                 assert len((self._wfs).shape)==3, "Wrong shape of self._wfs"
 
             # pick which energy wavefunctions to use
-            # wf_use=self._energy_wf_array[:,self._energy_band_ind_list,:]
             wf_use=(self._energy_wf_array)._wfs[:,self._energy_band_ind_list,:]
 
             # calculate the Wilson loop matrix
@@ -250,13 +211,6 @@ class wannier_band_basis_array(object):
 
             # compute the wannier band energy and wannier band basis
             (self._wannier_band_energy[:],self._wfs[:])=_wilson_eigs((self._energy_wf_array)._model,wilson_matrix,wnum=len(self._energy_band_ind_list))
-
-            ### BELOW ARE CODE NOT USED
-            # ret=_one_berry_loop_wham(wf_use,self.VG_mat(dir)) # in 1D, here we can go either with dir = None or dir = 0
-            # this ret will already be an array with shape (_nsta x _nsta) 
-            # if (dir != None) and (dir != 0):
-            #     raise Exception("\n\nWrong direction for Berry phase calculation!")
-            ### ABOVE ARE CODE NOT USED
         
         elif len(self._per)==2: # original model has two periodic directions
 
@@ -272,7 +226,6 @@ class wannier_band_basis_array(object):
 
                 for i in range(self._mesh_arr_energy_band[1]):
 
-                    # wf_use=self._energy_wf_array[:,i,:,:][:,self._energy_band_ind_list,:]
                     wf_use=(self._energy_wf_array)._wfs[:,i,:,:][:,self._energy_band_ind_list,:]
                     wilson_matrix=_one_berry_loop_wilson_matrix(wf_use,VG_mat((self._energy_wf_array)._model,self._per[0]))
                     (self._wannier_band_energy[i,:],self._wfs[i,:])=_wilson_eigs((self._energy_wf_array)._model,wilson_matrix,wnum=len(self._energy_band_ind_list))
@@ -281,7 +234,6 @@ class wannier_band_basis_array(object):
 
                 for i in range(self._mesh_arr_energy_band[0]):
 
-                    # wf_use=self._energy_wf_array[i,:,:,:][:,self._energy_band_ind_list,:]
                     wf_use=(self._energy_wf_array)._wfs[i,:,:,:][:,self._energy_band_ind_list,:]
                     wilson_matrix=_one_berry_loop_wilson_matrix(wf_use,VG_mat((self._energy_wf_array)._model,self._per[1]))
                     (self._wannier_band_energy[i,:],self._wfs[i,:])=_wilson_eigs((self._energy_wf_array)._model,wilson_matrix,wnum=len(self._energy_band_ind_list))
@@ -292,11 +244,6 @@ class wannier_band_basis_array(object):
 
             # impose boundary conditions on both self._wannier_band_energy and self._wfs
             self.impose_pbc_wannier_band_basis(0,self._per_wannier_band[0])
-
-            ### BELOW ARE CODE NOT USED
-            # if dir<0 or dir>1: # check dir
-            #     raise Exception("\n\nWrong dir for VG matrix!") # note that there will also be error if dir = None when we do 2D case
-            ### ABOVE ARE CODE NOT USED
 
         elif len(self._per)==3: # original model has three periodic directions
 
@@ -314,7 +261,6 @@ class wannier_band_basis_array(object):
 
                     for j in range(self._mesh_arr_energy_band[2]):
 
-                        # wf_use=self._energy_wf_array[:,i,j,:,:][:,self._energy_band_ind_list,:]
                         wf_use=(self._energy_wf_array)._wfs[:,i,j,:,:][:,self._energy_band_ind_list,:]
                         wilson_matrix=_one_berry_loop_wilson_matrix(wf_use,VG_mat((self._energy_wf_array)._model,self._per[0]))
                         (self._wannier_band_energy[i,j,:],self._wfs[i,j,:])=_wilson_eigs((self._energy_wf_array)._model,wilson_matrix,wnum=len(self._energy_band_ind_list))
@@ -325,7 +271,6 @@ class wannier_band_basis_array(object):
 
                     for j in range(self._mesh_arr_energy_band[2]):
 
-                        # wf_use=self._energy_wf_array[i,:,j,:,:][:,self._energy_band_ind_list,:]
                         wf_use=(self._energy_wf_array)._wfs[i,:,j,:,:][:,self._energy_band_ind_list,:]
                         wilson_matrix=_one_berry_loop_wilson_matrix(wf_use,VG_mat((self._energy_wf_array)._model,self._per[1]))
                         (self._wannier_band_energy[i,j,:],self._wfs[i,j,:])=_wilson_eigs((self._energy_wf_array)._model,wilson_matrix,wnum=len(self._energy_band_ind_list))
@@ -336,7 +281,6 @@ class wannier_band_basis_array(object):
 
                     for j in range(self._mesh_arr_energy_band[1]):
 
-                        # wf_use=self._energy_wf_array[i,j,:,:,:][:,self._energy_band_ind_list,:]
                         wf_use=(self._energy_wf_array)._wfs[i,j,:,:,:][:,self._energy_band_ind_list,:]
                         wilson_matrix=_one_berry_loop_wilson_matrix(wf_use,VG_mat((self._energy_wf_array)._model,self._per[2]))
                         (self._wannier_band_energy[i,j,:],self._wfs[i,j,:])=_wilson_eigs((self._energy_wf_array)._model,wilson_matrix,wnum=len(self._energy_band_ind_list))
@@ -349,42 +293,9 @@ class wannier_band_basis_array(object):
             self.impose_pbc_wannier_band_basis(0,self._per_wannier_band[0])
             self.impose_pbc_wannier_band_basis(1,self._per_wannier_band[1])
 
-            ### BELOW ARE CODE NOT USED
-            # if dir<0 or dir>2: # check dir
-            #     raise Exception("\n\nWrong dir for VG matrix!") # note that there will also be error if dir = None when we do 3D case
-            ### ABOVE ARE CODE NOT USED
-
         else:
 
             raise Exception("\n\nWrong dimensionality!")
-
-        ### BELOW ARE CODE NOT USED
-        # # convert the list of Wilson Hamiltonian to numpy array with complex dtype
-        # if self._dim_arr>1: # the ret of self._dim_arr == 1 will already be an array
-        #     ret=np.array(ret,dtype=complex)
-
-        # return ret
-
-        ## occ = a list of the occupied band index
-        ## dir = the direction along which we will do the product of overlap matrices
-        ## dir can be None, but only for the case of 1D system, it is also ok to have a dir for 1D system, but 
-        ## in below we will strictly require dir = 0 for 1D system if a dir has ever been input by the user
-        ## the general rule is that the users are encouraged to still put in dir = 0 even if they are considering 
-        ## a 1D system
-        ## for 2D or higher dimensional system we need the user to input a specific dir
-        ## Will return an array of Wilson Hamiltonian, which is the (_nsta x _nsta)-dim representation of the Wilson loop matrix
-        
-        ## note that the wf_array will have shape [k1 ind,band index,orb,spin] or [k1 ind,band index,orb] for 1D
-        ## [k1 ind,k2 ind,band index,orb,spin] or [k1 ind,k2 ind,band index,orb] for 2D
-        ## [k1 ind,k2 ind,k3 ind,band index,orb,spin] or [k1 ind,k2 ind, k3 ind,band index,orb] for 3D
-
-        # if dir<0 or dir>self._dim_arr-1: 
-        #     raise Exception("\n\nDirection key out of range")
-        
-        # This could be coded more efficiently, but it is hard-coded for now.
-        ### ABOVE ARE CODE NOT USED
-
-    # def berry_phase_wham(self): # still on going
 
     def nested_berry_phase(self,window,nested_wilson_loop_dir=None,contin=True,berry_evals=False,wnum=None):
 
@@ -438,32 +349,12 @@ class wannier_band_basis_array(object):
                 # what is not allowed is that if the user input an integral nested_wilson_loop_dir but this nested_wilson_loop_dir is not equal to 0
                 raise Exception("\n\nIncorrect nested_wilson_loop_dir for 2D system!")
 
-            ### BELOW ARE CODE NOT USED
-            # if dir==None:
-            #     raise Exception("\n\nIncorrect dir for 2D system!")
-            # elif (type(dir)==int) and dir!=0:
-            #     raise Exception("\n\nIncorrect dir for 2D system!")
-            # else: 
-            #     raise Exception("\n\nIncorrect dir for 2D system!")
-            # if dir==None or (type(dir)==int and dir!=0):
-            #     raise Exception("\n\nIncorrect dir for 2D system!")
-            ### ABOVE ARE CODE NOT USED
-
         if len((self._wannier_band_energy).shape)==3: # model has three periodic directions
             
             if (nested_wilson_loop_dir==None) or (type(nested_wilson_loop_dir)==int and (nested_wilson_loop_dir<0 or nested_wilson_loop_dir>1)):
                 # We do not allow nested_wilson_loop_dir=None for models with three periodic directions
                 # We also do not allow, if nested_wilson_loop_dir is input as an integer, that nested_wilson_loop_dir is not equal to 0 or 1
                 raise Exception("\n\nIncorrect nested_wilson_loop_dir for 3D system!")
-
-            ### BELOW ARE CODE NOT USED
-            # if dir==None:
-            #     raise Exception("\n\nIncorrect dir for 2D system!")
-            # elif (type(dir)==int) and (dir<0 or dir>1):
-            #     raise Exception("\n\nIncorrect dir for 3D system!")
-            # else:
-            #     raise Exception("\n\nIncorrect dir for 3D system!")
-            ### ABOVE ARE CODE NOT USED
         
         # generate the appropriate VG matrix
         if len((self._wannier_band_energy).shape)==2: # model has two periodic directions
@@ -536,179 +427,6 @@ class wannier_band_basis_array(object):
 
         return ret
 
-        ### BELOW ARE CODE NOT USED
-        # its user's responsibility for now to make sure that they input the correct model and VGdir
-
-        # wevals will take the form of the output W_E_list from solve_wilson_array
-        #        for 2D, wevals will be [kind1,band ind]       --> len(wevals.shape)==2
-        #        for 3D, wevals will be [kind1,kind2,band ind] --> len(wevals.shape)==3
-
-        # wevecs will take the form of the output W_V_list from solve_wilson_array
-        #        for 2D, wevecs will be [kind1,band ind,orb,spin] or [kind1,band ind,orb]
-        #        for 3D, wevecs will be [kind1,kind2,band ind,orb,spin] or [kind1,kind2,band ind,orb]
-
-        # w1 and w2 are the lower and upper bound of the window
-        # inoutflag = 0 or 1, 0 = inner, 1 = outer
-        # dir is the direction we do nested Wilson loop calculation over the wevecs
-        # for 2D case dir can be None, the code will take care of it since there will just be one direction 
-        # that we will like to do the nested Wilson loop calculation, but for 3D case dir will need to be either
-        # 0 or 1
-
-        # For example, suppose we have a 3D system. If we integrate along G1 to get the array of Wilson Hamiltonian,
-        # then if we do dir = 0 here, then we will be doing the nested Wilson loop calculation along G2.
-
-        # if w2 < w1:
-        #     raise Exception("\n\nw2 should be greater than w1")
-
-        # This could be coded more efficiently, but it is hard-coded for now.
-
-        # VG_diag=np.array([np.exp(2*I*np.pi*model._orb[n][VGdir]) for n in range(len(model._orb))])
-        # # spinless or spinful
-        # if model._nspin==1:
-        #     VG=np.diag(VG_diag)
-        # elif model._nspin==2:
-        #     VG=np.kron(np.diag(VG_diag),np.eye(2,dtype=complex))
-        ### ABOVE ARE CODE NOT USED
-
-    # def solve_wilson_array(self): # still on going...
-
-    #     r"""
-    #     Solve and return the Wannier band basis array over the grid of self._mesh_arr.
-    #     The Wannier band basis (object ._wfs) |w_{n,{\bf k}}> will satisfy |w_{n,{\bf k}+{\bf G}}>=[V(G)]^{-1}|w_{n,{\bf k}}>,
-    #     where [V(G)]_{ab} = e^{i*{\bf G} \cdot {\bf r}_{a}} where {\bf r}_{a} is the position vector of the 
-    #     a^th orbital within the unit cell.
-    #     The Wannier band energy (object ._wannier_band_energy) will also satisfy periodic boundary condition
-    #     """
-
-    #     ## model: pythtb model of the system we are considering now
-    #     ## dir: the direction we use "previously" to do the first Wilson loop and obtain the Wilson Hamiltonian array "warray",
-    #     ##      and currently it is the responsibility of the users to correctly specify this "dir".
-    #     ## warray: an array containing the Wilson Hamiltonian over a k-grid
-    #     ##         for 1D case, warray will be [model._nsta,model._nsta]       (since we have already integrated out one direction) --> len(warray.shape)==2
-    #     ##         for 2D case, warray will be [k1,model._nsta,model._nsta]    (since we have already integrated out one direction) --> len(warray.shape)==3
-    #     ##         for 3D case, warray will be [k1,k2,model._nsta,model._nsta] (since we have already integrated out one direction) --> len(warray.shape)==4
-    #     ## wnum: expected number of Wannier bands (we don't necessarily need to specify this, but its good if we know so we can double check)
-
-    #     ## will return two arrays, one is for the Wannier energy (Wannier bands) and the other is for the corresponding eigenvectors
-    #     ## of the Wilson loop where the "boundary conditions same as the Bloch energy eigenvectors" are imposed
-
-    #     # # empty eigenphase and eigenvector list, will populate them later
-    #     # W_E_list=[]
-    #     # W_V_list=[]
-
-    #     # get the k_dir_list that will be used later to impose boundary conditions on the wf_array
-    #     # at the same time, populate the W_E_list and W_V_list properly
-    #     if self._dim_arr_energy_band==1: # 1D case
-
-    #         # no need to impose any boundary conditions on the W_V_list
-    #         W_E_list , W_V_list = _wilson_eigs(self.model,warray,self._energy_band_ind_list)
-    #         # note that the output of _wilson_eigs is of the form (wnum) and (wnum,norb,nspin)/(wnum,norb)
-
-    #         self._wannier_band_energy[:]=W_E_list
-    #         self._wfs[:]=W_V_list
-
-    #     elif len(warray.shape)==3: # 2D case
-
-    #         if dir==0: # need to impose the boundary condition along ky (or k2)
-    #             k_dir=1
-    #         elif dir==1: # need to impose the boundary condition along kx (or k1)
-    #             k_dir=0
-
-    #         # get the eigenphases and eigenvectors
-    #         for x in warray:
-
-    #             W_E , W_V = _wilson_eigs(model,x,wnum)
-    #             if (wnum!=None and type(wnum)==int and wnum>0):
-    #                 if len(W_E)!=wnum:
-    #                     raise Exception("\n\nThe number of Wannier bands is not the expected number!")
-
-    #             W_E_list.append(W_E)
-    #             W_V_list.append(W_V)
-            
-    #             # double check the shape of W_V
-    #             if model._nspin==1:
-    #                 if len(W_V.shape)!=2:
-    #                     raise Exception("\n\nThe shape of wf array for eigenvectors of Wilson loop is not as expected!")
-
-    #             elif model._nspin==2:
-    #                 if len(W_V.shape)!=3:
-    #                     raise Exception("\n\nThe shape of wf array for eigenvectors of Wilson loop is not as expected!")
-
-    #         # check if all the array in W_E_list has the same size
-    #         if not all(len(i) == len(W_E_list[0]) for i in W_E_list):
-    #             raise Exception("\n\nThe numbers of Wannier band energies at all k points are not consistent!")
-
-    #         # change the list to array, no need to reshape
-    #         W_E_list=np.array(W_E_list) # W_E_list takes the form [kpt,band ind]
-    #         W_V_list=np.array(W_V_list) # W_V_list takes the form [kpt,band ind,orb,spin] or [kpt,band ind,orb]
-
-    #         # now impose the boundary conditions on W_V_list
-    #         W_V_list=impose_pbc_wham(model,W_V_list,0,k_dir)
-
-    #         ### also impose periodic boundary conditions on W_E_list
-    #         assert len(W_E_list.shape)==2
-    #         W_E_list[-1,:]=W_E_list[0,:]
-
-    #     elif len(warray.shape)==4: # 3D case
-
-    #         if dir==0: # need to impose the boundary condition along ky and kz (or k2 and k3)
-    #             k_dir_list=[1,2]
-    #         elif dir==1: # need to impose the boundary condition along kx and kz (or k1 and k3)
-    #             k_dir_list=[0,2]
-    #         elif dir==2: # need to impose the boundary condition along kx and ky (or k1 and k2)
-    #             k_dir_list=[0,1]
-            
-    #         # get the eigenphases and eigenvectors
-    #         (k1,k2,n)=warray.shape[0:3]
-    #         for x in warray.reshape(k1*k2,n,n):
-                
-    #             W_E , W_V = _wilson_eigs(model,x,wnum)
-    #             if (wnum!=None and type(wnum)==int and wnum>0):
-    #                 if len(W_E)!=wnum:
-    #                     raise Exception("\n\nThe number of Wannier bands is not the expected number!")
-
-    #             W_E_list.append(W_E)
-    #             W_V_list.append(W_V)
-
-    #             # double check the shape of W_V
-    #             if model._nspin==1:
-    #                 if len(W_V.shape)!=2:
-    #                     raise Exception("\n\nThe shape of wf array for eigenvectors of Wilson loop is not as expected!")
-
-    #             elif model._nspin==2:
-    #                 if len(W_V.shape)!=3:
-    #                     raise Exception("\n\nThe shape of wf array for eigenvectors of Wilson loop is not as expected!")
-            
-    #         # check if all the array in W_E_list has the same size
-    #         if not all(len(i) == len(W_E_list[0]) for i in W_E_list):
-    #             raise Exception("\n\nThe numbers of Wannier band energies at all k points are not consistent!")
-
-    #         # change the list to array and reshape it
-    #         len_W_E=len(W_E_list[0])
-    #         W_V_shape=W_V_list[0].shape
-    #         W_E_list=np.array(W_E_list)
-    #         W_V_list=np.array(W_V_list)
-    #         W_E_list=W_E_list.reshape(k1,k2,len_W_E) # W_E_list takes the form [k1,k2,band ind]
-    #         if model._nspin==1:
-    #             W_V_list=W_V_list.reshape(k1,k2,W_V_shape[0],W_V_shape[1]) # W_V_list takes the form [k1,k2,band ind,orb]
-    #         elif model._nspin==2:
-    #             W_V_list=W_V_list.reshape(k1,k2,W_V_shape[0],W_V_shape[1],W_V_shape[2]) # W_V_list takes the form [k1,k2,band ind,orb,spin]
-
-    #         # now impose the boundary conditions on W_V_list
-    #         W_V_list=impose_pbc_wham(model,W_V_list,0,k_dir_list[0])
-    #         W_V_list=impose_pbc_wham(model,W_V_list,1,k_dir_list[1])
-
-    #         ### also impose periodic boundary conditions on W_E_list
-    #         assert len(W_E_list.shape)==3
-    #         W_E_list[-1,:,:]=W_E_list[0,:,:]
-    #         W_E_list[:,-1,:]=W_E_list[:,0,:]
-
-    #     else:
-
-    #         raise Exception("\n\nShape of the array for Wilson Hamiltonian is not expected!")
-
-    #     return W_E_list , W_V_list
-
     # zero-dimensional finite size model has already been prevented in __init__
     def __check_key(self,key):
 
@@ -733,24 +451,6 @@ class wannier_band_basis_array(object):
                     raise TypeError("Key should be set of integers!")
                 if k<(-1)*self._mesh_arr[i] or k>=self._mesh_arr[i]:
                     raise IndexError("Key outside the range!")
-
-        ### BELOW ARE CODE NOT USED
-        # # do some checks for 1D
-        # if self._dim_arr==1: 
-        #     if type(key).__name__!='int':
-        #         raise TypeError("Key should be an integer!")
-        #     if key<(-1)*self._mesh_arr[0] or key>=self._mesh_arr[0]:
-        #         raise IndexError("Key outside the range!")
-        # # do checks for higher dimension
-        # else:
-        #     if len(key)!=self._dim_arr:
-        #         raise TypeError("Wrong dimensionality of key!")
-        #     for i,k in enumerate(key):
-        #         if type(k).__name__!='int':
-        #             raise TypeError("Key should be set of integers!")
-        #         if k<(-1)*self._mesh_arr[i] or k>=self._mesh_arr[i]:
-        #             raise IndexError("Key outside the range!")
-        ### ABOVE ARE CODE NOT USED
 
     def __getitem__(self,key):
 
@@ -779,11 +479,6 @@ class wannier_band_basis_array(object):
         else:
             return self._wfs[key] # return back the Wannier band basis array with shape [band,orbit,spin] or [band,orbit]
 
-        ### BELOW ARE CODE NOT USED
-        # # return wavefunction
-        # return self._wfs[key]
-        ### ABOVE ARE CODE NOT USED
-
     def __setitem__(self,key,value):
 
         # value must have shape [band,orbital,spin] or [band,orbital,spin]
@@ -800,11 +495,6 @@ class wannier_band_basis_array(object):
             self._wfs=np.array(value,dtype=complex)
         else:
             self._wfs[key]=np.array(value,dtype=complex)
-
-        ### BELOW ARE CODE NOT USED
-        # # store wavefunction
-        # self._wfs[key]=np.array(value,dtype=complex)
-        ### ABOVE ARE CODE NOT USED
 
     def impose_pbc_wannier_band_basis(self,mesh_dir,k_dir): 
 
@@ -849,10 +539,6 @@ class wannier_band_basis_array(object):
             self._wfs[-1,...]=self._wfs[0,...]*phase
         elif mesh_dir==1:
             self._wfs[:,-1,...]=self._wfs[:,0,...]*phase
-        # elif mesh_dir==2:
-        #     self._wfs[:,:,-1,...]=self._wfs[:,:,0,...]*phase
-        # elif mesh_dir==3:
-        #     self._wfs[:,:,:,-1,...]=self._wfs[:,:,:,0,...]*phase
         else:
             raise Exception("\n\nWrong value of mesh_dir.")
 
@@ -861,10 +547,6 @@ class wannier_band_basis_array(object):
             self._wannier_band_energy[-1,:]=self._wannier_band_energy[0,:]
         elif mesh_dir==1:
             self._wannier_band_energy[:,-1,:]=self._wannier_band_energy[:,0,:]
-
-        ### BELOW ARE CODE NOT USED
-        # return wf
-        ### ABOVE ARE CODE NOT USED
 
 #=======================================================================
 # Begin internal definitions
@@ -904,15 +586,6 @@ def VG_mat(model,G_dir=None):
         if G_dir not in model._per:
             raise Exception("\n\nWrong G_dir")
 
-        ### BELOW ARE CODE NOT USED
-        # if (G_dir == None) or ((type(G_dir) == int) and (G_dir not in model._per)):
-        #     raise Exception("\n\nWrong G_dir")
-        # elif type(G_dir) != int:
-        #     raise Exception("\n\nWrong G_dir")
-        # elif G_dir not in model._per:
-        #     raise Exception("\n\nWrong G_dir")
-        ### ABOVE ARE CODE NOT USED
-
     # First get the diagonal elements, and then from it form the diagonal [V(G)] matrix, and we 
     # will will take care of the spins of the model
     if len(model._per)==1: 
@@ -928,25 +601,6 @@ def VG_mat(model,G_dir=None):
         VG=np.diag(VG_diag)
     elif model._nspin==2:
         VG=np.kron(np.diag(VG_diag),np.eye(2,dtype=complex))
-
-        ### BELOW ARE CODE NOT USED
-        # if ((G_dir != None) and (type(G_dir)==int)) and (G_dir != 0):
-        #     raise Exception("\n\nWrong G_dir for [V(G)] matrix")
-
-        # # make sure G_dir is integer, otherwise raise Exception
-        # if type(G_dir)!=int:
-        #     raise Exception("\n\nG_dir must be integer")
-        # # for 2D we have either G_dir = 0 or G_dir = 1, otherwise raise Exception
-        # if G_dir<0 or G_dir>1: 
-        #     raise Exception("\n\nWrong G_dir for [V(G)] matrix") 
-
-        # # make sure G_dir is integer, otherwise raise Exception
-        # if type(G_dir)!=int:
-        #     raise Exception("\n\nG_dir must be integer")
-        # # for 3D we have either G_dir = 0, G_dir = 1, or G_dir = 2, otherwise will raise Exception
-        # if G_dir<0 or G_dir>2: 
-        #     raise Exception("\n\nWrong G_dir for [V(G)] matrix") 
-        ### ABOVE ARE CODE NOT USED
     
     return VG
 
@@ -974,11 +628,6 @@ def _one_berry_loop_wilson_matrix(wf,VG):
     # temporary matrices
     proj=np.identity(len(wf[0,0,:].flatten()),dtype=complex) # the flatten is used in case we have a spinful model with nspin=2
 
-    ### BELOW ARE CODE NOT USED
-    # prd=np.identity(nocc,dtype=complex)
-    # ovr=np.zeros([nocc,nocc],dtype=complex)
-    ### ABOVE ARE CODE NOT USED
-
     # go over all k-points
     # wf.shape[0] is the number of k points along the loop
     for i in range(wf.shape[0]): #range(wf.shape[0]-1):
@@ -987,27 +636,6 @@ def _one_berry_loop_wilson_matrix(wf,VG):
         V=np.array([wf[i,j,:].flatten() for j in range(nocc)])
         V=V.T
         proj=np.matmul(proj,np.matmul(V,(V.conjugate()).T))
-
-    ### BELOW ARE CODE NOT USED
-        # # generate overlap matrix, go over all bands
-        # for j in range(nocc):
-
-        #     for k in range(nocc):
-
-        #         ovr[j,k]=_wf_dpr(wf[i,j,:],wf[i+1,k,:])
-
-        # # for Wilson Hamiltonian construction here we will "always" take SVD <-- can modify this a bit later
-        # # cleanup matrices with SVD then take product
-        # matU,sing,matV=np.linalg.svd(ovr)
-        # prd=np.dot(prd,np.dot(matU,matV))
-
-    # # obtain the Wilson Hamiltonian, which is the (_nsta x _nsta)-dim representation of the Wilson loop matrix
-    # # Principle: we have "prd" as the (nocc x nocc)-dim representation of the Wilson loop matrix
-    # #            we may then re-express prd as \sum_{i,j \in occ} |j> * prd[j,i] * <i|.
-    # #            the |j> and |i> are the occupied Bloch eigenvectors at the base point
-    # u=np.array([np.ravel(wf[0,i,:]) for i in range(nocc)]) # the ravel is to make the wf 1D array if the model is spinful, and the "0" is to take only the Bloch eigenvector at the base point
-    # ham=np.sum([np.outer(u[j],np.conj(u[i]))*prd[j,i] for i in range(nocc) for j in range(nocc)],axis=0)
-    ### ABOVE ARE CODE NOT USED
 
     # multiply the result of projector products by appropriate (VG matrix)^dagger from the "right"
     proj=np.matmul(proj,(VG.conjugate()).T)
@@ -1025,7 +653,6 @@ def _one_berry_loop_wilson_matrix(wf,VG):
     wilson_matrix=np.sum([np.outer(V0[:,j],np.conj(V0[:,i]))*W[j,i] for i in range(nocc) for j in range(nocc)],axis=0)
 
     return wilson_matrix
-    # return _prettify(wilson_matrix)
 
 def _wilson_eigs(model,wham,wnum=None): 
 
@@ -1140,13 +767,6 @@ def _one_nested_berry_loop_wannier_window(wevals_use,wevecs_use,window,VG,berry_
         else:
             raise Exception("\n\nThe two elements in the window list can not be identical")
         
-        ### BELOW ARE CODE NOT USED
-        # if inoutflag==0: # will select inner Wannier states
-        #     occ_list.append([x for x in range(len(w)) if (w1<w[x] and w[x]<w2)])
-        # elif inoutflag==1: # will select outer Wannier states
-        #     occ_list.append([x for x in range(len(w)) if (w[x]<w1 or w2<w[x])])
-        ### ABOVE ARE CODE NOT USED
-        
     # check that all the lists in occ_list have the same length
     if not all(len(x) == len(occ_list[0]) for x in occ_list):
         raise Exception("\n\nThe Wannier window is wrong! (not separating inner from outer)")
@@ -1171,16 +791,6 @@ def _one_nested_berry_loop_wannier_window(wevals_use,wevecs_use,window,VG,berry_
     # temporary matrices
     proj=np.identity(len(wevecs_use[0,0,:].flatten()),dtype=complex) # this will work for either spinless (nspin=1) or spinful (nspin=2) model
 
-    ### BELOW ARE CODE NOT USED
-    # # temporary matrices if we know wnum at the beginning:
-    # if (wnum!=None and type(wnum)==int and wnum>0):
-    #     prd=np.identity(wnum,dtype=complex)
-    #     ovr=np.zeros([wnum,wnum],dtype=complex)
-    # else: # if we don't know wnum, we can still set the prd and ovr by using the occ_list we obtained above
-    #     prd=np.identity(len(occ_list[0]),dtype=complex)
-    #     ovr=np.zeros([len(occ_list[0]),len(occ_list[0])],dtype=complex)
-    ### ABOVE ARE CODE NOT USED
-
     # go over all k-points
     # wevecs_use.shape[0] is the number of k points along the loop
     # construct the projector and then do projector product: P_W(k1)P_W(k2)...P_W(kN) where kN is the last point
@@ -1190,22 +800,6 @@ def _one_nested_berry_loop_wannier_window(wevals_use,wevecs_use,window,VG,berry_
         V=np.array([wevecs_use[i,j,:].flatten() for j in occ_list[i]])
         V=V.T
         proj=np.matmul(proj,np.matmul(V,(V.conjugate()).T))
-
-        ### BELOW ARE CODE NOT USED
-        # # generate overlap matrix, go over all bands
-        # for j in range(len(occ_list[i])):
-        #     for k in range(len(occ_list[i+1])):
-        #         ovr[j,k]=_wf_dpr(wevecs_use[i,occ_list[i][j],:],wevecs_use[i+1,occ_list[i+1][k],:])
-        # # only find Berry phase
-        # if berry_evals==False:
-        #     # multiply overlap matrices
-        #     prd=np.dot(prd,ovr)
-        # # also find phases of individual eigenvalues
-        # else:
-        #     # cleanup matrices with SVD then take product
-        #     matU,sing,matV=np.linalg.svd(ovr)
-        #     prd=np.dot(prd,np.dot(matU,matV))
-        ### ABOVE ARE CODE NOT USED
 
     # multiply the result of projector products by appropriate (VG matrix)^dagger from the "right"
     proj=np.matmul(proj,(VG.conjugate()).T)
@@ -1223,22 +817,12 @@ def _one_nested_berry_loop_wannier_window(wevals_use,wevecs_use,window,VG,berry_
     if berry_evals==False:
         det=np.linalg.det(W)
         pha=(-1.0)*np.angle(det)
-        # det=np.linalg.det(prd)
-        # pha=(-1.0)*np.angle(det)
         return pha # this will return a number
     # calculate phases of all eigenvalues
     else:
         evals=np.linalg.eigvals(W)
         eval_pha=(-1.0)*np.angle(evals)
-        # evals=np.linalg.eigvals(prd)
-        # eval_pha=(-1.0)*np.angle(evals)
-
         # sort these numbers as well
         eval_pha=np.sort(eval_pha)
         return eval_pha # this will in general return a 1D array
-
-    ### BELOW ARE CODE NOT USED
-    # if w2 < w1:
-    #     raise Exception("\n\nw2 should be greater than w1")
-    ### ABOVE ARE CODE NOT USED
 
