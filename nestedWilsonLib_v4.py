@@ -72,7 +72,7 @@ class wannier_band_basis_array(object):
 
         # check that the energy eigenstates have been obtained through solve_on_grid in energy_wf_array, which is the wf_array class in pythtb
         if np.all(energy_wf_array._wfs==0.0+0.0*1j):
-            raise Exception("\n\nthe solve_on_grid in wf_array hasn't been implemented!!")
+            raise Exception("\n\nthe solve_on_grid in wf_array hasn't been executed!")
         
         # store the energy_wf_array class 
         self._energy_wf_array=copy.deepcopy(energy_wf_array)
