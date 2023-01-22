@@ -76,6 +76,10 @@ class wannier_band_basis_array(object):
         
         # store the energy_wf_array class 
         self._energy_wf_array=copy.deepcopy(energy_wf_array)
+        
+        # check if model came from w90
+        if ((self._energy_wf_array)._model)._assume_position_operator_diagonal==False:
+            _offdiag_approximation_warning_and_stop()
 
         # number of electronic states for each k-point
         self._nsta=((self._energy_wf_array)._model)._nsta
