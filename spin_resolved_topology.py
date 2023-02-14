@@ -1,3 +1,7 @@
+# Functions that can be used to perform spin-resolved topology analysis
+
+# Authors: Kuan-Sen Lin (UIUC Physics), Benjamin J. Wieder (University of Paris-Saclay), and Barry Bradlyn (UIUC Physics)
+
 import numpy as np
 import numpy.linalg as lin
 from pythtb import *
