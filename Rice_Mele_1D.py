@@ -10,6 +10,8 @@
 # 3. Waniner band basis calculation
 # 4. spectral flow in Rice-Mele chain
 
+# Authors: Kuan-Sen Lin (UIUC Physics), Benjamin J. Wieder (University of Paris-Saclay), and Barry Bradlyn (UIUC Physics)
+
 import numpy as np
 import matplotlib.pyplot as plt
 from pythtb import *
