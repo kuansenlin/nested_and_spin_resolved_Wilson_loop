@@ -1,0 +1,9 @@
+The 1D Rice Mele model used in this calculation has parameters t = 1.0, delta t = -0.1, Delta = 0.5, phi = 1.0*pi
+Wilson loop eigenphase (Berry phase) for the lower energy band is (unit: pi):
+1.000000000000000000e+00
+The (two-component) corresponding Wannier band basis wave function is:
+ (-5.714524695237586030e-17+7.071067811865474617e-01j)
+ (-7.071067811865475727e-01-4.591925694487156040e-16j)
+whose probability distribution is:
+4.999999999999998890e-01
+5.000000000000001110e-01
