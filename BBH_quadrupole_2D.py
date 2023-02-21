@@ -17,6 +17,9 @@
 # Therefore, the nested Wilson loop eigenphases obtained in this example code correspond to the those at 
 # either k1 = -0.5 or k2 = -0.5 in the reduced coordinate, depending on whether the first direction for the Wilson loop calculation is k1 or k2.
 
+# (k1,k2) and (kx,ky) are used interchangeably in this example code
+# The first (a1) and second (a2) lattice directions are used interchangeably as x and y, respectively, in this example code
+
 # The model parameters chosen in this example file lie in the middle blue region of Fig. 25 in PRB 96, 245115 (2017)
 
 # Authors: Kuan-Sen Lin (UIUC Physics), Benjamin J. Wieder (University of Paris-Saclay), and Barry Bradlyn (UIUC Physics)
