@@ -1,0 +1,12 @@
+If we do Wilson loop calculation first along k1 and then k2, then the nested Wilson loop eigenphase for the Wannier band within the window [-0.75pi,0.0pi] is: (in unit of pi)
+-9.999999999999998890e-01
+, and the nested Wilson loop eigenphase for the Wannier band outside the window [-0.75pi,0.0pi] is: (in unit of pi)
+-1.000000000000000000e+00
+Since the base point of [k1,k2] is [-0.5,-0.5] in the reduced coordinate, in this calculation we obtain the nested Wilson loop eigenphase at k1 = -0.5 in the reduced coordinate.
+
+
+If we do Wilson loop calculation first along k2 and then k1, then the nested Wilson loop eigenphase for the Wannier band within the window [-0.75pi,0.0pi] is: (in unit of pi)
+-1.000000000000000000e+00
+, and the nested Wilson loop eigenphase for the Wannier band outside the window [-0.75pi,0.0pi] is: (in unit of pi)
+-9.999999999999996669e-01
+Since the base point of [k1,k2] is [-0.5,-0.5] in the reduced coordinate, in this calculation we obtain the nested Wilson loop eigenphase at k2 = -0.5 in the reduced coordinate.
