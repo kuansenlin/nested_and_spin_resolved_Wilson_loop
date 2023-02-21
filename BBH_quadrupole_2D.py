@@ -207,9 +207,12 @@ prob_cell_middle=np.array(prob_cell_middle)
 
 plt.figure()
 avg_prob_cell_middle=prob_cell_middle/len(wvfn_ind)
+print("The energies of the four states at the middle of the spectrum are")
 print(finite_evals[wvfn_ind])
+print("The total probability of the averaged probability distribution for the four states at the middle of the spectrum is")
 print(np.sum(avg_prob_cell_middle))
-assert np.min(avg_prob_cell_middle)>0.0
+assert np.isclose(np.sum(avg_prob_cell_middle),1.0)
+assert np.min(avg_prob_cell_middle)>=0.0
 plt.scatter(pos_array[:,0],pos_array[:,1],c=avg_prob_cell_middle,vmin=0.0,cmap='binary')
 plt.axis("square")
 plt.xticks([], [])
