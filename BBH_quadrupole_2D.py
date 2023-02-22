@@ -138,9 +138,11 @@ plt.close()
 
 print("Compute 1D ribbon energy bands (finite along x)")
 
+start_time = timeit.default_timer()
 xribbon=my_model.cut_piece(20,0,glue_edgs=False)
 (xribbon_k_vec,xribbon_k_dist,xribbon_k_node) = xribbon.k_path([[-0.5],[0.0],[0.5]],201,report=False)
 xribbon_evals = xribbon.solve_all(xribbon_k_vec)
+print("--- %s seconds ---" % (timeit.default_timer() - start_time))
 
 plt.figure()
 for n in range(len(xribbon_evals[:,0])):
@@ -156,9 +158,11 @@ plt.close()
 
 print("Compute 1D ribbon energy bands (finite along y)")
 
+start_time = timeit.default_timer()
 yribbon=my_model.cut_piece(20,1,glue_edgs=False)
 (yribbon_k_vec,yribbon_k_dist,yribbon_k_node) = yribbon.k_path([[-0.5],[0.0],[0.5]],201,report=False)
 yribbon_evals = yribbon.solve_all(yribbon_k_vec)
+print("--- %s seconds ---" % (timeit.default_timer() - start_time))
 
 plt.figure()
 for n in range(len(yribbon_evals[:,0])):
@@ -177,9 +181,11 @@ plt.close()
 print("Compute 0D finite size energy spectrum")
 
 # 0D finite size calculation
+start_time = timeit.default_timer()
 temp=my_model.cut_piece(30,0,glue_edgs=False)
 finite_model=temp.cut_piece(30,1,glue_edgs=False)
 (finite_evals,finite_evecs)=finite_model.solve_all(eig_vectors=True)
+print("--- %s seconds ---" % (timeit.default_timer() - start_time))
 plt.figure()
 within_ind=[i for i in range(len(finite_evals)) if -0.75<=finite_evals[i] and finite_evals[i]<=0.75]
 plt.plot(within_ind,finite_evals[within_ind],'.',color='black')
