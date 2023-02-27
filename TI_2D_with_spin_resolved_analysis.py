@@ -309,7 +309,7 @@ plt.xlim([0,minus_wbe.shape[0]-1])
 plt.ylim([-np.pi,np.pi])
 plt.grid(True)
 plt.tight_layout()
-plt.savefig(path_data+"/kx_directed_spin_sz_resolved_Wilson_loop_over_upper_spin_band.pdf")
+plt.savefig(path_data+"/kx_directed_spin_sz_resolved_Wilson_loop_over_lower_spin_band.pdf")
 plt.close()
 
 plt.figure(figsize=(5.2,5))
@@ -323,7 +323,7 @@ plt.xlim([0,plus_wbe.shape[0]-1])
 plt.ylim([-np.pi,np.pi])
 plt.grid(True)
 plt.tight_layout()
-plt.savefig(path_data+"/kx_directed_spin_sz_resolved_Wilson_loop_over_lower_spin_band.pdf")
+plt.savefig(path_data+"/kx_directed_spin_sz_resolved_Wilson_loop_over_upper_spin_band.pdf")
 plt.close()
 
 # end of the code
