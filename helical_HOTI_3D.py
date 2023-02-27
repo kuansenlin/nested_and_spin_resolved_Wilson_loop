@@ -606,7 +606,7 @@ plt.tight_layout()
 plt.savefig(path_data+"/P6_outer_nested_Wilson_loop_summed_eigenphase.pdf")
 plt.close()
 
-print("The results of nested Wilson loop correspond to Fig. 26 of arXiv:2207.10099v1")
+print("The results of nested Wilson loop correspond to Figs. 26 (a), (d), and (g) of arXiv:2207.10099v1")
 
 # end of the code
 print("Done")
