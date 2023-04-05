@@ -1,4 +1,4 @@
-# Example of spin-resolved analysis using a model of 2D topological insulator (TI)
+# Example of (spin-resolved) band topology analysis using (spin-resolved) Wilson loop for a model of 2D topological insulator (TI)
 # The model can be found in Eq. (C37) of arXiv:2207.10099v1.
 # The code is run using python3
 # The code is run using pythtb version 1.7.2
@@ -23,8 +23,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 # plt.switch_backend('agg')
 from pythtb import *
-from nestedWilsonLib_v4 import *
-from spin_resolved_topology import * # in order to facilitate the spin-resolved analysis
+from nestedWilsonLib_v4 import * # import the nested Wilson loop library
+from spin_resolved_analysis import * # in order to facilitate the analyses of spin-resolved topology
 import timeit
 import os
 
@@ -169,7 +169,7 @@ plt.close()
 
 ########### 2D bulk spin-sz bands ###########
 
-print("Compute the 2D bulk spin-sz bands using get_PsP_evals from spin_resolved_topology")
+print("Compute the 2D bulk spin-sz bands using get_PsP_evals from spin_resolved_analysis")
 
 spin_sz_evals=[]
 start_time = timeit.default_timer()
@@ -252,7 +252,7 @@ plt.close()
 
 print("Now start kx-directed spin-sz-resolved Wilson loop calculation")
 
-print("First, collect the eigenvectors of the projected spin operator using get_PsP_evecs from spin_resolved_topology")
+print("First, collect the eigenvectors of the projected spin operator using get_PsP_evecs from spin_resolved_analysis")
 
 start_time = timeit.default_timer()
 
