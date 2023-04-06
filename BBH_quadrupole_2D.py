@@ -280,7 +280,7 @@ nested_outer=array2.nested_berry_phase(window_list,dir2,contin=False,berry_evals
 print("--- %s seconds ---" % (timeit.default_timer() - start_time))
 
 with open(path_data+'/nested_Wilson_loop_result.txt','w') as f:
-    f.write("If we do Wilson loop calculation first along k1 and then k2, then the nested Wilson loop eigenphase for the Wannier band within the window [{}pi,{}pi] is: (in unit of pi)\n".format(window_1/np.pi,window_2/np.pi))
+    f.write("If we do nested Wilson loop calculation first along k1 and then k2, then the nested Wilson loop eigenphase for the Wannier band within the window [{}pi,{}pi] is: (in unit of pi)\n".format(window_1/np.pi,window_2/np.pi))
     np.savetxt(f,nested_inner/np.pi)
     f.write(", and the nested Wilson loop eigenphase for the Wannier band outside the window [{}pi,{}pi] is: (in unit of pi)\n".format(window_1/np.pi,window_2/np.pi))
     np.savetxt(f,nested_outer/np.pi)
@@ -329,7 +329,7 @@ nested_outer=array2.nested_berry_phase(window_list,dir2,contin=False,berry_evals
 print("--- %s seconds ---" % (timeit.default_timer() - start_time))
 
 with open(path_data+'/nested_Wilson_loop_result.txt','a') as f:
-    f.write("If we do Wilson loop calculation first along k2 and then k1, then the nested Wilson loop eigenphase for the Wannier band within the window [{}pi,{}pi] is: (in unit of pi)\n".format(window_1/np.pi,window_2/np.pi))
+    f.write("If we do nested Wilson loop calculation first along k2 and then k1, then the nested Wilson loop eigenphase for the Wannier band within the window [{}pi,{}pi] is: (in unit of pi)\n".format(window_1/np.pi,window_2/np.pi))
     np.savetxt(f,nested_inner/np.pi)
     f.write(", and the nested Wilson loop eigenphase for the Wannier band outside the window [{}pi,{}pi] is: (in unit of pi)\n".format(window_1/np.pi,window_2/np.pi))
     np.savetxt(f,nested_outer/np.pi)
