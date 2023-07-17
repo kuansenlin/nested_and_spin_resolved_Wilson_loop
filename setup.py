@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="nested_Wilson_loop", # This is the name of the package
+    name="nested_and_spin_resolved_Wilson_loop", # This is the name of the package
     version="1.0", # The initial release version
     author="Kuan-Sen Lin, Benjamin J. Wieder, and Barry Bradlyn", # Full name of the author    
     author_email="kuansen2@illinois.edu, benjamin.wieder@ipht.fr, and bbradlyn@illinois.edu", # Email of the author at the time of first release
