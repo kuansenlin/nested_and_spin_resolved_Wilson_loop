@@ -15,12 +15,12 @@ The physics of spin-resolved topology and the numerical scheme of nested Wilson 
 Install using pip
 
 ``` 
-pip install nested_Wilson_loop 
+pip install nested_and_spin_resolved_Wilson_loop 
 ```
 
 ## Requirements
 
-nested_Wilson_loop requires the following packages:
+nested_and_spin_resolved_Wilson_loop requires the following packages:
 
 - pythtb
 - numpy
@@ -30,7 +30,7 @@ nested_Wilson_loop requires the following packages:
 
 ## Examples
 
-We provide a set of python example codes in the “examples” directory for the following computations:
+We provide a set of python example codes in the "examples" directory for the following computations:
 
 - Wilson loop spectrum of 1D Rice-Mele chain.
 
@@ -40,7 +40,7 @@ We provide a set of python example codes in the “examples” directory for the
 
 - nested spin-resolved Wilson loop spectrum of 3D helical higher-order topological insulator.
 
-The output figures and data are also included in each subdirectory of the “examples” directory.
+The output figures and data are also included in each subdirectory of the "examples" directory.
 
 The python example codes are run using python3 and PythTB version 1.7.2.
 

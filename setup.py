@@ -19,5 +19,3 @@ setuptools.setup(
     install_requires=["pythtb","numpy","copy","numpy.linalg","scipy.linalg"] # Install other dependencies if any
 )
 
-### python setup.py install
-
