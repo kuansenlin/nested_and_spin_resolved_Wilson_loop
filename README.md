@@ -12,10 +12,10 @@ The physics of spin-resolved topology and the numerical scheme of nested Wilson 
 
 ## Installation
 
-Install using pip
+Install by running
 
 ``` 
-pip install nested_and_spin_resolved_Wilson_loop 
+python setup.py install 
 ```
 
 ## Requirements
@@ -25,7 +25,6 @@ nested_and_spin_resolved_Wilson_loop requires the following packages:
 - pythtb
 - numpy
 - scipy
-- copy
 - matplotlib
 
 ## Examples
