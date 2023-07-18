@@ -16,6 +16,6 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     py_modules=["nestedWilsonLib_v4","spin_resolved_analysis"], # Name of the python package
     package_dir={'':'src'}, # Directory of the source code of the package
-    install_requires=["pythtb","numpy","copy","numpy.linalg","scipy.linalg"] # Install other dependencies if any
+    install_requires=["pythtb","numpy","scipy"] # Install other dependencies if any
 )
 
