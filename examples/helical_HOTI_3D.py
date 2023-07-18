@@ -26,7 +26,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 # plt.switch_backend('agg')
 from pythtb import *
-from nestedWilsonLib_v4 import *
+from nestedWilsonLib import *
 import timeit
 import os
 

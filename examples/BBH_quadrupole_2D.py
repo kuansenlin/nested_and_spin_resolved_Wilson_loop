@@ -29,7 +29,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 # plt.switch_backend('agg')
 from pythtb import *
-from nestedWilsonLib_v4 import *
+from nestedWilsonLib import *
 import timeit
 import os
 

@@ -6,6 +6,8 @@ import numpy as np
 import numpy.linalg as lin
 from pythtb import *
 
+__version__='1.0'
+
 # function to get the spin Sx, Sy, and Sz operator given a spinful pythtb tight-binding model
 # users need to input the following information
 # model: a pythtb model, the function will check if the model has nspin = 2

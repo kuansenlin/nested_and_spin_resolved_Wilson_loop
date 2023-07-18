@@ -23,7 +23,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 # plt.switch_backend('agg')
 from pythtb import *
-from nestedWilsonLib_v4 import * # import the nested Wilson loop library
+from nestedWilsonLib import * # import the nested Wilson loop library
 from spin_resolved_analysis import * # in order to facilitate the analyses of spin-resolved topology
 import timeit
 import os

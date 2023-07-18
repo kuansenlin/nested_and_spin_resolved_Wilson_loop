@@ -46,7 +46,7 @@ import matplotlib.pyplot as plt
 # plt.switch_backend('agg')
 import numpy.linalg as lin
 from pythtb import *
-from nestedWilsonLib_v4 import * # import nested Wilson loop library
+from nestedWilsonLib import * # import nested Wilson loop library
 import timeit
 import os
 

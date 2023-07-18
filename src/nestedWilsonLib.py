@@ -8,6 +8,8 @@ from pythtb import _array_phases_cont
 from pythtb import _offdiag_approximation_warning_and_stop
 from scipy.linalg import schur
 
+__version__='1.0'
+
 r"""
 
 ### Expected actual implementation (updated on 11/18/2022)

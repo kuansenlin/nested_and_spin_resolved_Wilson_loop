@@ -14,7 +14,7 @@ setuptools.setup(
     description="Computation of nested Wilson loop and the analysis of spin-resolved topology for tight binding models in the framework of PythTB",
     long_description=long_description, # Long description read from the the readme file
     long_description_content_type="text/markdown",
-    py_modules=["nestedWilsonLib_v4","spin_resolved_analysis"], # Name of the python package
+    py_modules=["nestedWilsonLib","spin_resolved_analysis"], # Name of the python package
     package_dir={'':'src'}, # Directory of the source code of the package
     install_requires=["pythtb","numpy","scipy"] # Install other dependencies if any
 )
