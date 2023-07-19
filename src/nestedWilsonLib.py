@@ -10,36 +10,63 @@ from scipy.linalg import schur
 
 __version__='1.0'
 
-r"""
 
-### Expected actual implementation (updated on 11/18/2022)
 
-# Specify the model and grid numbers k1_grid*k2_grid*k3_grid 
-# Use the original wf_array class of pythtb
+#Useful constants
+I=1.*1j
+
+class wannier_band_basis_array(object):
+    r"""
+
+energy_wf_array: wf_array class from pythtb after performing wf_array.solve_on_grid
+
+energy_band_ind_list: a list of integers specifying the indices of the energy bands chosen to form the Wannier band basis
+
+wilson_loop_dir: direction along which the Wilson loop will be computed
+        if wilson_loop_dir=0: the Wilson loop will be computed along the first  k-point entry of energy_wf_array
+        if wilson_loop_dir=1: the Wilson loop will be computed along the second k-point entry of energy_wf_array
+        if wilson_loop_dir=2: the Wilson loop will be computed along the third  k-point entry of energy_wf_array
+        
+        e.g. if we have a 3D model with energy_wf_array._mesh_arr=[21,31,41], 
+        then wilson_loop_dir=0 means computing Wilson loop along the first direction with 21 grids
+        
+        e.g. if we have a slab model cut from a 3D model with finite direction along the second lattice vector,
+        then even though we have energy_wf_array._mesh_arr=[21,41] and (energy_wf_array._model)._per=[0,2], 
+        the wilson_loop_dir can still be chosen only between 0 and 1, for instance in this case if 
+        wilson_loop_dir=1, it means that the Wilson loop will be computed along the k-point entry with 41 grids
+
+Example Usage (updated on 11/18/2022)
+
+Specify the model and grid numbers k1_grid*k2_grid*k3_grid 
+Use the original wf_array class of pythtb
+
 array1=wf_array(my_model,[k1_grid,k2_grid,k3_grid])
 
-# Specify the base point of energy eigenvectors, and get the energy eigenvectors over the grids
-# Use the original wf_array class of pythtb
+Specify the base point of energy eigenvectors, and get the energy eigenvectors over the grids
+Use the original wf_array class of pythtb
+
 array1.solve_on_grid([0,0,0]) 
 
-# Use the energy eigenvector array object, together with the index of the energy band over 
-# which the Wannier band basis will be computed, and the Wilson loop direction, we form the 
-# new object of class "wannier_band_basis_array"
-# At this point, the Wannier band basis functions have not been computed, but several checks should already been
-# done when we form the wannier_band_basis_array class.
-# the dir1 is along "which entry of the array1" we will compute the Wilson loop
+Use the energy eigenvector array object, together with the index of the energy band over 
+which the Wannier band basis will be computed, and the Wilson loop direction, we form the 
+new object of class "wannier_band_basis_array"
+At this point, the Wannier band basis functions have not been computed, but several checks should already been
+done when we form the wannier_band_basis_array class.
+the dir1 is along "which entry of the array1" we will compute the Wilson loop
+
 dir1=0
 array2=wannier_band_basis_array(array1,[1,2,3],dir1) 
 
-# Compute and return the Wannier band basis by directly calling solve_wannier_band_basis
+Compute and return the Wannier band basis by directly calling solve_wannier_band_basis
 array2.solve_wannier_band_basis()
 
-# Specify the window_list=[window_1,window_2], will use convention that 
-# if window_1<window_2 then we do inner nested Wilson loop, and 
-# if window_1>window_2 then we do outer nested Wilson loop.
-# Also specify the nested Wilson loop direction, contin, berry_evals
-# wnum (optional) = the expected number of nested Wilson loop eigenphases
-# the dir2 is along which entry of the array2 we will compute the nested Wilson loop
+Specify the window_list=[window_1,window_2], will use convention that 
+if window_1<window_2 then we do inner nested Wilson loop, and 
+if window_1>window_2 then we do outer nested Wilson loop.
+Also specify the nested Wilson loop direction, contin, berry_evals
+wnum (optional) = the expected number of nested Wilson loop eigenphases
+the dir2 is along which entry of the array2 we will compute the nested Wilson loop
+
 dir2=0
 window_list=[-0.1*np.pi,0.1*np.pi]
 in_data=array2.nested_berry_phase(window_list,dir2,contin=False,berry_evals=True,wnum=1)
@@ -48,29 +75,9 @@ out_data=array2.nested_berry_phase(window_list,dir2,contin=False,berry_evals=Tru
 
 """
 
-#Useful constants
-I=1.*1j
-
-class wannier_band_basis_array(object):
-
     def __init__(self,energy_wf_array,energy_band_ind_list,wilson_loop_dir):
 
-        # energy_wf_array: wf_array class from pythtb after performing wf_array.solve_on_grid
-
-        # energy_band_ind_list: a list of integers specifying the indices of the energy bands chosen to form the Wannier band basis
-
-        # wilson_loop_dir: direction along which the Wilson loop will be computed
-        #                  if wilson_loop_dir=0: the Wilson loop will be computed along the first  k-point entry of energy_wf_array
-        #                  if wilson_loop_dir=1: the Wilson loop will be computed along the second k-point entry of energy_wf_array
-        #                  if wilson_loop_dir=2: the Wilson loop will be computed along the third  k-point entry of energy_wf_array
         
-        #                  e.g. if we have a 3D model with energy_wf_array._mesh_arr=[21,31,41], 
-        #                       then wilson_loop_dir=0 means computing Wilson loop along the first direction with 21 grids
-        
-        #                  e.g. if we have a slab model cut from a 3D model with finite direction along the second lattice vector,
-        #                       then even though we have energy_wf_array._mesh_arr=[21,41] and (energy_wf_array._model)._per=[0,2], 
-        #                       the wilson_loop_dir can still be chosen only between 0 and 1, for instance in this case if 
-        #                       wilson_loop_dir=1, it means that the Wilson loop will be computed along the k-point entry with 41 grids
 
         # check that the energy eigenstates have been obtained through solve_on_grid in energy_wf_array, which is the wf_array class in pythtb
         if np.all(energy_wf_array._wfs==0.0+0.0*1j):
@@ -311,25 +318,26 @@ class wannier_band_basis_array(object):
 
         r"""
         Solve and return the nested Wilson loop eigenphases -- the Berry phases computed over the Wannier bands.
+        
+
+        window: a list containing two float numbers = [w1,w2]
+                if w1 < w2: compute the nested Wilson loop eigenphases over the Wannier bands within the range (w1,w2)
+                if w1 > w2: compute the nested Wilson loop eigenphases over the Wannier bands outside the range of [w1,w2]
+
+        nested_wilson_loop_dir: direction along which the nested  Wilson loop will be computed.
+                                If nested_wilson_loop_dir=0, the nested Wilson loop will be computed along the first  k-point entry of wannier_band_basis_array
+                                If nested_wilson_loop_dir=1, the nested Wilson loop will be computed along the second k-point entry of wannier_band_basis_array
+                                nested_wilson_loop_dir can be None for systems with two periodic directions for the original model, namely len(self._per)=2.
+                                but nested_wilson_loop_dir needs to be either 0 or 1 for systems with two periodic directions for the original model, namely len(self._per)=3.
+        currently the nested Wilson loop calculation is only for systems whose original model has two or three periodic direction, namely len(self._per)=2 or 3.
+
+        e.g. if len(self._per)=3, and we choose both wilson_loop_dir=1 and nested_wilson_loop_dir=1, then the nested Wilson loop
+             will be computed along G1 where {G1,G2,G3} are the three reciprocal lattice vectors.
+
+        (optional) wnum = expected number of Wannier bands fixed by the window variable 
+
+        berry_evals: True = obtain individual eigenphases, False = obtain the summation over all eigenphases mod 2pi within range [-pi,pi)
         """
-
-        # window: a list containing two float numbers = [w1,w2]
-        #         if w1 < w2: compute the nested Wilson loop eigenphases over the Wannier bands within the range (w1,w2)
-        #         if w1 > w2: compute the nested Wilson loop eigenphases over the Wannier bands outside the range of [w1,w2]
-
-        # nested_wilson_loop_dir: direction along which the nested  Wilson loop will be computed.
-        #                         If nested_wilson_loop_dir=0, the nested Wilson loop will be computed along the first  k-point entry of wannier_band_basis_array
-        #                         If nested_wilson_loop_dir=1, the nested Wilson loop will be computed along the second k-point entry of wannier_band_basis_array
-        #                         nested_wilson_loop_dir can be None for systems with two periodic directions for the original model, namely len(self._per)=2.
-        #                         but nested_wilson_loop_dir needs to be either 0 or 1 for systems with two periodic directions for the original model, namely len(self._per)=3.
-        # currently the nested Wilson loop calculation is only for systems whose original model has two or three periodic direction, namely len(self._per)=2 or 3.
-
-        # e.g. if len(self._per)=3, and we choose both wilson_loop_dir=1 and nested_wilson_loop_dir=1, then the nested Wilson loop
-        #      will be computed along G1 where {G1,G2,G3} are the three reciprocal lattice vectors.
-
-        # (optional) wnum = expected number of Wannier bands fixed by the window variable 
-
-        # berry_evals: True = obtain individual eigenphases, False = obtain the summation over all eigenphases mod 2pi within range [-pi,pi)
 
         # check if model came from w90
         if ((self._energy_wf_array)._model)._assume_position_operator_diagonal==False:
@@ -507,22 +515,22 @@ class wannier_band_basis_array(object):
             self._wfs[key]=np.array(value,dtype=complex)
 
     def impose_pbc_wannier_band_basis(self,mesh_dir,k_dir): 
+        r'''
+        self.model: pythtb model of the system we are considering now
 
-        ## self.model: pythtb model of the system we are considering now
-
-        ## self._wfs: array for wannier band basis functions
-        ## will deal with only 2D (len(self._per)=2) and 3D (len(self._per)=3) systems
-        ## when we have 2D system, we have self._wfs be [kpnt,band ind,orb,spin] or [kpnt,band ind,orb]
-        ## when we have 3D system, we have self._wfs be [kpnt1,kpnt2,band ind,orb,spin] or [kpnt1,kpnt2,band ind,orb]
+        self._wfs: array for wannier band basis functions
+        will deal with only 2D (len(self._per)=2) and 3D (len(self._per)=3) systems
+        when we have 2D system, we have self._wfs be [kpnt,band ind,orb,spin] or [kpnt,band ind,orb]
+        when we have 3D system, we have self._wfs be [kpnt1,kpnt2,band ind,orb,spin] or [kpnt1,kpnt2,band ind,orb]
         
-        ## mesh_dir: along which direction of the self._wfs array we would like to impose the boundary condition
-        ## k_dir: which reciprocal lattice vector we would like to impose the boundary condition along
+        mesh_dir: along which direction of the self._wfs array we would like to impose the boundary condition
+        k_dir: which reciprocal lattice vector we would like to impose the boundary condition along
         
-        ## For example, suppose we have a 3D system. And we choose mesh_dir = 0 and k_dir = 1,
-        ## this means that we will impose the boundry condition along kpnt1 in self._wfs=[kpnt1,kpnt2,band ind,orb,(spin)]
-        ## and the boundary condition for the alpha tight-binding basis function will be using exp(-i \vec{r}_alpha \cdot \vec{G}_2 )
-        ## assuming {G1,G2,G3} is the set of the reciprocal lattice vectors for this 3D system.
-
+        For example, suppose we have a 3D system. And we choose mesh_dir = 0 and k_dir = 1,
+        this means that we will impose the boundry condition along kpnt1 in self._wfs=[kpnt1,kpnt2,band ind,orb,(spin)]
+        and the boundary condition for the alpha tight-binding basis function will be using exp(-i \vec{r}_alpha \cdot \vec{G}_2 )
+        assuming {G1,G2,G3} is the set of the reciprocal lattice vectors for this 3D system.
+        '''
         # make sure that the model has periodic directions more than 1
         if len(self._per) < 2:
             raise Exception("\n\nThe number of periodic directions of the model needs to be greater than 1 for impose_pbc_wannier_band_basis to work.")
@@ -567,13 +575,13 @@ def _prettify(nparray):
     return nparray*mask
 
 def VG_mat(model,G_dir=None):
-
-    # model: pythtb model
-    # G_dir: a direction that is integer and contained in model._per
-    # e.g. for 3D (len(self._per)=3) system G_dir should be within [0,1,2]
-    # e.g. for a slab cutted from a 3D system finite along the second lattice vector, G_dir should be within [0,2]
-    # for 1D system the user can sepcify "None" for G_dir
-
+    r'''
+        model: pythtb model
+        G_dir: a direction that is integer and contained in model._per
+        e.g. for 3D (len(self._per)=3) system G_dir should be within [0,1,2]
+        e.g. for a slab cutted from a 3D system finite along the second lattice vector, G_dir should be within [0,2]
+        for 1D system the user can sepcify "None" for G_dir
+    '''
     # check the dimension of the model
     if len(model._per)<1:
         raise Exception("\n\nThere exist no [V(G)] matrix for models without periodicity") 
@@ -615,12 +623,12 @@ def VG_mat(model,G_dir=None):
     return VG
 
 def _one_berry_loop_wilson_matrix(wf,VG): 
-
-    # wf: [kpnt,band,orbital,spin] or [kpnt,band,orbital] and kpnt has to be one dimensional
-    # VG: the [V(\mathbf{G})] matrix with elements [V(\mathbf{G})]_{ab}=e^{i \mathbf{G} \cdot \mathbf{r}_a} \delta_{ab} 
-    #     where \mathbf{G} is the direction in k-space along which the Wilson loop is performed
-    # return: a Wilson loop matrix with shape (len(wf[0,0,:].flatten()),len(wf[0,0,:].flatten()))
-
+    r'''
+    wf: [kpnt,band,orbital,spin] or [kpnt,band,orbital] and kpnt has to be one dimensional
+    VG: the [V(\mathbf{G})] matrix with elements [V(\mathbf{G})]_{ab}=e^{i \mathbf{G} \cdot \mathbf{r}_a} \delta_{ab} 
+        where \mathbf{G} is the direction in k-space along which the Wilson loop is performed
+    return: a Wilson loop matrix with shape (len(wf[0,0,:].flatten()),len(wf[0,0,:].flatten()))
+    '''
     # number of occupied states
     nocc=wf.shape[1] # this holds for either spinless or spinful model, since we are taking out the number of band index
 
@@ -665,14 +673,15 @@ def _one_berry_loop_wilson_matrix(wf,VG):
     return wilson_matrix
 
 def _wilson_eigs(model,wham,wnum=None): 
-
-    ## model = pythtb model
-    ## wham = Wilson loop matrix with shape (model._nsta,model._nsta)
-    ## (optional) wnum = expected number of Wannier bands, default is None
-
+    r'''
+    model = pythtb model
+    wham = Wilson loop matrix with shape (model._nsta,model._nsta)
+    (optional) wnum = expected number of Wannier bands, default is None
+    '''
     # check if the wham is normal (A A^dag = A^dag A)
     # in principle, wham can be decomposed into \sum_{j=1}^{nocc} e^{i*\gamma_j} |j> <j|
     # |j> is a _nsta-component vector since a pre-svd decomposition has been performed
+    
     if np.max(np.abs(np.matmul(wham,wham.T.conjugate())-np.matmul(wham.T.conjugate(),wham)))>1.0E-8:
         raise Exception("\n\nWilson loop matrix should be normal!")
     
@@ -724,10 +733,10 @@ def _wilson_eigs(model,wham,wnum=None):
         return (tempvals[q],tempvecs[:,q].T.reshape(len(q),model._norb,model._nspin)) 
 
 def _reshape_wf_1D_array(model,wf_1D_array): 
-
-    # model: pythtb model 
-    # wf_1D_array: a 1D array 
-    
+    r'''
+    model: pythtb model 
+    wf_1D_array: a 1D array 
+    '''
     # make sure that wf_1D_array is an 1D array
     assert len(wf_1D_array.shape)==1, "wf_1D_array is not an 1D array"
 
@@ -741,19 +750,19 @@ def _reshape_wf_1D_array(model,wf_1D_array):
         return wf_1D_array.reshape(model._norb,model._nspin)
 
 def _one_nested_berry_loop_wannier_window(wevals_use,wevecs_use,window,VG,berry_evals=False,wnum=None):
-
-    ## wevals_use: [kpnt,band] and kpnt has to be one dimensional
-    ## wevecs_use: [kpnt,band,orbital,spin] or [kpnt,band,orbital] and kpnt has to be one dimensional
-    ## window: a list of form [window_1,window_2].
-    ##         if window_1 < window_2: choose the bands within window_1~window_2
-    ##         if window_1 > window_2: choose the bands outside window_2~window_1
-    ## VG: the [V(\mathbf{G})] matrix with elements [V(\mathbf{G})]_{ab}=e^{i \mathbf{G} \cdot \mathbf{r}_a} \delta_{ab} 
-    ##     where \mathbf{G} is the direction in k-space along which the Wilson loop is performed
-    ## berry_evals: True = obtain individual eigenphases, False = obtain the summation over all eigenphases mod 2pi
-    ## wnum: the number of Wannier bands we would like to use to perform the nested Berry phase calculation
-    ##       it is not necessary that the user input a wnum, but it is good to input the expected wnum, so that
-    ##       the function will help double check
-
+    r'''
+    wevals_use: [kpnt,band] and kpnt has to be one dimensional
+    wevecs_use: [kpnt,band,orbital,spin] or [kpnt,band,orbital] and kpnt has to be one dimensional
+    window: a list of form [window_1,window_2].
+            if window_1 < window_2: choose the bands within window_1~window_2
+            if window_1 > window_2: choose the bands outside window_2~window_1
+    VG: the [V(\mathbf{G})] matrix with elements [V(\mathbf{G})]_{ab}=e^{i \mathbf{G} \cdot \mathbf{r}_a} \delta_{ab} 
+        where \mathbf{G} is the direction in k-space along which the Wilson loop is performed
+    berry_evals: True = obtain individual eigenphases, False = obtain the summation over all eigenphases mod 2pi
+    wnum: the number of Wannier bands we would like to use to perform the nested Berry phase calculation
+          it is not necessary that the user input a wnum, but it is good to input the expected wnum, so that
+          the function will help double check
+    '''
     # pre-calculation to get the occ_list based on wevals_use, w1, w2, and inoutflag
     # this occ_list will serve as the tool for later construction of projector such that we select the
     # correct vectors to form the projector

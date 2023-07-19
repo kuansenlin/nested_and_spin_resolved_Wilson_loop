@@ -8,12 +8,14 @@ from pythtb import *
 
 __version__='1.0'
 
-# function to get the spin Sx, Sy, and Sz operator given a spinful pythtb tight-binding model
-# users need to input the following information
-# model: a pythtb model, the function will check if the model has nspin = 2
-# the output are Sx, Sy, and Sz, which are all matrices with shape (Nt,Nt) where Nt = the number of tight-binding basis functions per unit cell
-def get_Sx_Sy_Sz(model):
 
+def get_Sx_Sy_Sz(model):
+    r'''
+    function to get the spin Sx, Sy, and Sz operator given a spinful pythtb tight-binding model
+    users need to input the following information
+    model: a pythtb model, the function will check if the model has nspin = 2
+    the output are Sx, Sy, and Sz, which are all matrices with shape (Nt,Nt) where Nt = the number of tight-binding basis functions per unit cell
+    '''
     assert model._nspin==2 , "this function is for model with nspin = 2"
 
     Nt=model._nsta # total number of tight-binding basis functions per unit cell
@@ -45,15 +47,17 @@ def get_Sx_Sy_Sz(model):
     return Sx, Sy, Sz
 
 
-# function to obtain the eigenvalues of the projected spin operator at a given k point
-# users need to input the following information
-# model: a pythtb model
-# spin_dir: a list, or an 1D array, of three numbers specifying the direction of the spin, this spin_dir needs not to be a unit vector
-# occ: a list, or an 1D array, specifying the indices of the occupied energy bands (the first band has index 0)
-# k: a list, or an 1D array, specifying a bulk k point compatible with the number of periodic directions of the model
-# the output is an 1D array with len(occ) elements
-def get_PsP_evals(model,spin_dir,occ,k):
 
+def get_PsP_evals(model,spin_dir,occ,k):
+    r'''
+    function to obtain the eigenvalues of the projected spin operator at a given k point
+    users need to input the following information
+    model: a pythtb model
+    spin_dir: a list, or an 1D array, of three numbers specifying the direction of the spin, this spin_dir needs not to be a unit vector
+    occ: a list, or an 1D array, specifying the indices of the occupied energy bands (the first band has index 0)
+    k: a list, or an 1D array, specifying a bulk k point compatible with the number of periodic directions of the model
+    the output is an 1D array with len(occ) elements
+    '''
     assert model._nspin==2 , "this function is for model with nspin = 2"
 
     Sx, Sy, Sz = get_Sx_Sy_Sz(model) # get the spin matrices
@@ -92,19 +96,21 @@ def get_PsP_evals(model,spin_dir,occ,k):
     return sred_evals
 
 
-# function to obtain the projected spin operator eigenstates at a given k point
-# users need to input the following information
-# model: a pythtb model
-# spin_dir: a list, or an 1D array, of three numbers specifying the direction of the spin, this spin_dir needs not to be a unit vector
-# occ: a list, or an 1D array, specifying the indices of the occupied energy bands (the first band has index 0)
-# k: a list, or an 1D array, specifying a bulk k point compatible with the number of periodic directions of the model
-# the output is an array with shape (Nt,Nt//2,2) where Nt = the number of tight-binding basis function per unit cell of the model,
-# and in particular, the elements of the output with entries [len(occ)//2:Nt-len(occ)//2,:] are zero since they correspond to states 
-# in the image of 1 - P where P is the projector onto the occupied space and will not be used in any calculations.
-# Also, the elements of the output with entries [np.arange(occ_ind//2),:] corrresond to the PsP eigenvectors in the lower spin bands.
-# Similarly, the elements of the output with entries [np.arange(Nt-occ_ind//2,Nt),:] corrresond to the PsP eigenvectors in the upper spin bands.
-def get_PsP_evecs(model,spin_dir,occ,k):
 
+def get_PsP_evecs(model,spin_dir,occ,k):
+    r'''
+    function to obtain the projected spin operator eigenstates at a given k point
+    users need to input the following information
+    model: a pythtb model
+    spin_dir: a list, or an 1D array, of three numbers specifying the direction of the spin, this spin_dir needs not to be a unit vector
+    occ: a list, or an 1D array, specifying the indices of the occupied energy bands (the first band has index 0)
+    k: a list, or an 1D array, specifying a bulk k point compatible with the number of periodic directions of the model
+    the output is an array with shape (Nt,Nt//2,2) where Nt = the number of tight-binding basis function per unit cell of the model,
+    and in particular, the elements of the output with entries [len(occ)//2:Nt-len(occ)//2,:] are zero since they correspond to states 
+    in the image of 1 - P where P is the projector onto the occupied space and will not be used in any calculations.
+    Also, the elements of the output with entries [np.arange(occ_ind//2),:] corrresond to the PsP eigenvectors in the lower spin bands.
+    Similarly, the elements of the output with entries [np.arange(Nt-occ_ind//2,Nt),:] corrresond to the PsP eigenvectors in the upper spin bands.
+    '''
     assert model._nspin==2 , "this function is for model with nspin = 2"
 
     Sx, Sy, Sz = get_Sx_Sy_Sz(model) # get the spin matrices
