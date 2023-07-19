@@ -53,3 +53,6 @@ Please cite the following papers when using this package:
 
 [3] K.-S. Lin, G. Palumbo, Z. Guo, J. Blackburn, D. P. Shoemaker, F. Mahmood, Z. Wang, G. A. Fiete, B. J. Wieder, and B. Bradlyn, Spin-resolved topology and partial axion angles in three-dimensional insulators, arXiv:2207.10099
 
+## License
+
+This project is released under the [GNU General Public License](https://github.com/kuansenlin/nested_and_spin_resolved_Wilson_loop/LICENSE)
