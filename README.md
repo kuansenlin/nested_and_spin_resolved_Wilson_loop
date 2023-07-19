@@ -55,4 +55,4 @@ Please cite the following papers when using this package:
 
 ## License
 
-This project is released under the [GNU General Public License](https://github.com/kuansenlin/nested_and_spin_resolved_Wilson_loop/LICENSE)
+This project is released under the [GNU General Public License](https://github.com/kuansenlin/nested_and_spin_resolved_Wilson_loop/blob/main/LICENSE)
