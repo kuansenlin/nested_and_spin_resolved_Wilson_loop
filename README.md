@@ -36,7 +36,7 @@ We provide a set of python example codes in the "examples" directory for the fol
 
 - Wilson loop spectrum of 1D Rice-Mele chain.
 
-- spin-resolved Wilson loop spectrum of 2D topological insulator, and 2D fragile topological insulator (see Ref. [2]).
+- spin-resolved Wilson loop spectrum of 2D topological insulator and a 2D fragile topological insulator (see Ref. [2]).
 
 - nested Wilson loop spectrum of 2D quadrupole insulator, 3D inversion-protected or C2T-protected axion insulator, and 3D helical higher-order topological insulator (see Refs. [1,2,3]).
 
