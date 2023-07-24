@@ -8,7 +8,7 @@ This extension contains the following modules:
 - **spin_resolved_analysis**: perform the spin-resolved analysis and can be used to discover new spin-resolved topology for a given tight-binding model with spins constructed from [PythTB](https://www.physics.rutgers.edu/pythtb/) 
 These modules are within the framework of original [PythTB](https://www.physics.rutgers.edu/pythtb/). 
 
-The physics of spin-resolved topology and the numerical scheme of nested Wilson loop calculation are detailed in Ref. [3]. Our nested Wilson loop module (nestedWilsonLib) can be used to compute both the Wilson loop (Berry phase, or Wannier charge center) and the nested Wilson loop spectrum for a given tight-binding model constructed from [PythTB](https://www.physics.rutgers.edu/pythtb/). Combining the two modules (nestedWilsonLib and spin_resolved_analysis) one can compute the spin-resolved Wilson loop and the nested spin-resolved Wilson loop spectrum for a given [PythTB](https://www.physics.rutgers.edu/pythtb/) tight-binding model with spins.  
+The physics of spin-resolved topology and the numerical scheme of nested Wilson loop calculations are detailed in Ref. [3]. Our nested Wilson loop module (nestedWilsonLib) can be used to compute both the Wilson loop (Berry phase, or Wannier charge center) and the nested Wilson loop spectrum for a given tight-binding model constructed from [PythTB](https://www.physics.rutgers.edu/pythtb/). Combining the two modules (nestedWilsonLib and spin_resolved_analysis) one can compute the spin-resolved Wilson loop and the nested spin-resolved Wilson loop spectrum for a given [PythTB](https://www.physics.rutgers.edu/pythtb/) tight-binding model with a spin degree of freedom.  
 
 ## Installation
 
@@ -33,11 +33,11 @@ We provide a set of python example codes in the "examples" directory for the fol
 
 - Wilson loop spectrum of 1D Rice-Mele chain.
 
-- spin-resolved Wilson loop spectrum of 2D topological insulator, and 2D fragile topological insulator.
+- spin-resolved Wilson loop spectrum of 2D topological insulator, and 2D fragile topological insulator (see Ref. [2]).
 
-- nested Wilson loop spectrum of 2D quadrupole insulator, 3D inversion-protected or C2T-protected axion insulator, and 3D helical higher-order topological insulator.
+- nested Wilson loop spectrum of 2D quadrupole insulator, 3D inversion-protected or C2T-protected axion insulator, and 3D helical higher-order topological insulator (see Refs. [1,2,3]).
 
-- nested spin-resolved Wilson loop spectrum of 3D helical higher-order topological insulator.
+- nested spin-resolved Wilson loop spectrum of 3D helical higher-order topological insulator (see Ref. [3]).
 
 The output figures and data are also included in each subdirectory of the "examples" directory.
 
