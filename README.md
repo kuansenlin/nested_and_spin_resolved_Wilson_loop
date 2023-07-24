@@ -3,7 +3,7 @@
 **Implemented by Kuan-Sen Lin, Benjamin J. Wieder, and Barry Bradlyn**
 
 This package is an extension of the original [PythTB Package](https://www.physics.rutgers.edu/pythtb/), which was developed and is mantained by Sinisa Coh (University of California at Riverside), David Vanderbilt (Rutgers University) and [other team members](https://www.physics.rutgers.edu/pythtb/about.html#history). All credit for the essential implementation of PythTB goes to the original developers. 
-For the documentation for the original PythTB Package, please visit the [PythTB page](https://www.physics.rutgers.edu/pythtb/usage.html), as the interface is identical.
+For documentation for the original PythTB Package, please visit the [PythTB page](https://www.physics.rutgers.edu/pythtb/usage.html), as the interface is identical.
 
 This extension contains the following modules:
 - **nestedWilsonLib**: perform the nested Wilson loop calculation which can facilitate the study of, for instance, higher-order topology, for a given tight-binding model constructed from [PythTB](https://www.physics.rutgers.edu/pythtb/) 
