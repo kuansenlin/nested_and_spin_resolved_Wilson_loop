@@ -38,13 +38,13 @@ We provide a set of python example codes in the "examples" directory for the fol
 
 - spin-resolved Wilson loop spectrum of 2D topological insulator and a 2D fragile topological insulator (see Ref. [2]).
 
-- nested Wilson loop spectrum of 2D quadrupole insulator, 3D inversion-protected or C2T-protected axion insulator, and 3D helical higher-order topological insulator (see Refs. [1,2,3]).
+- nested Wilson loop spectrum of a 2D quadrupole insulator, a 3D inversion-protected or C2T-protected axion insulator, and a 3D helical higher-order topological insulator (see Refs. [1,2,3]).
 
-- nested spin-resolved Wilson loop spectrum of 3D helical higher-order topological insulator (see Ref. [3]).
+- nested spin-resolved Wilson loop spectrum of a 3D helical higher-order topological insulator (see Ref. [3]).
 
 The output figures and data are also included in each subdirectory of the "examples" directory.
 
-The python example codes are run using python3 and PythTB version 1.7.2.
+The python example codes were run using python3 and PythTB version 1.7.2.
 
 ## References
 
