@@ -46,7 +46,7 @@ The output figures and data are also included in each subdirectory of the "examp
 
 The python example codes are run using python3 and PythTB version 1.7.2.
 
-## Reference
+## References
 
 Please cite the following papers when using this package:
 
