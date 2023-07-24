@@ -11,7 +11,7 @@ This extension contains the following modules:
 
 These modules are written within the framework of original [PythTB](https://www.physics.rutgers.edu/pythtb/). 
 
-The analytical framework underlying our implementation of the nested Wilson loop is detailed in Ref. [1,3], and the underlying physical principles of spin-resolved topology are detailed in Ref. [3]. Our nested Wilson loop module (nestedWilsonLib) can be used to compute both the Wilson loop (Berry phase or Wannier charge center) and the nested Wilson loop spectrum for a given tight-binding model constructed from [PythTB](https://www.physics.rutgers.edu/pythtb/). Combining the two modules (nestedWilsonLib and spin_resolved_analysis), one can compute the spin-resolved Wilson loop and the nested spin-resolved Wilson loop spectrum for a given [PythTB](https://www.physics.rutgers.edu/pythtb/) tight-binding model with a spin degree of freedom, as detailed in Ref. [3].  
+The analytical framework underlying our implementation of the nested Wilson loop is detailed in Refs. [1,3], and the underlying physical principles of spin-resolved topology are detailed in Ref. [3]. Our nested Wilson loop module (nestedWilsonLib) can be used to compute both the Wilson loop (Berry phase or Wannier charge center) and the nested Wilson loop spectrum for a given tight-binding model constructed from [PythTB](https://www.physics.rutgers.edu/pythtb/). Combining the two modules (nestedWilsonLib and spin_resolved_analysis), one can compute the spin-resolved Wilson loop and the nested spin-resolved Wilson loop spectrum for a given [PythTB](https://www.physics.rutgers.edu/pythtb/) tight-binding model with a spin degree of freedom, as detailed in Ref. [3].  
 
 ## Installation
 
