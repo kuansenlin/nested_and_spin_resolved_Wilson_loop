@@ -2,7 +2,7 @@
 
 **Implemented by Kuan-Sen Lin, Benjamin J. Wieder, and Barry Bradlyn**
 
-This package is an extension of the original [PythTB](https://www.physics.rutgers.edu/pythtb/), developed and mantained by Sinisa Coh (University of California at Riverside), David Vanderbilt (Rutgers University) and [others](https://www.physics.rutgers.edu/pythtb/about.html#history). All credit of the essential implementation goes to the original developers. 
+This package is an extension of the original [PythTB](https://www.physics.rutgers.edu/pythtb/) package, developed and mantained by Sinisa Coh (University of California at Riverside), David Vanderbilt (Rutgers University) and [others](https://www.physics.rutgers.edu/pythtb/about.html#history). All credit of the essential implementation goes to the original developers. 
 For documentation, please visit the [PythTB page](https://www.physics.rutgers.edu/pythtb/usage.html), as the interface is identical.
 
 This extension contains the following modules:
