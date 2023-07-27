@@ -15,10 +15,10 @@ The analytical framework underlying our implementation of the nested Wilson loop
 
 ## Installation
 
-Install by running
+Install by navigating to the working directory and run
 
 ``` 
-python setup.py install 
+pip install .
 ```
 
 ## Requirements
@@ -46,6 +46,7 @@ The output figures and data are also included in each subdirectory of the "examp
 
 The python example codes were run using python3 and PythTB version 1.7.2.
 
+Note that the examples (and the three-dimensional examples in particular) are quite computationally intensive. 
 ## References
 
 Please cite the following papers when using this package:
