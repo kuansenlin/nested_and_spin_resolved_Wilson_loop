@@ -7,7 +7,7 @@ For documentation for the original PythTB Package, please visit the [PythTB page
 
 This extension contains the following modules:
 - **nestedWilsonLib**: perform a nested Wilson loop calculation to facilitate the study of higher-order Wannier spectral evolution for a given tight-binding model constructed from [PythTB](https://www.physics.rutgers.edu/pythtb/) 
-- **spin_resolved_analysis**: compute the spin-resolved spectra of bulk band and Wannier spectra for a given spinful tight-binding model with constructed from [PythTB](https://www.physics.rutgers.edu/pythtb/)
+- **spin_resolved_analysis**: compute the spin-resolved spectra of bulk band and Wannier spectra for a given spinful tight-binding model constructed from [PythTB](https://www.physics.rutgers.edu/pythtb/)
 
 These modules are written within the framework of original [PythTB](https://www.physics.rutgers.edu/pythtb/). 
 
