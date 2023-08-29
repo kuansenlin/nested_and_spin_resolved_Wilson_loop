@@ -46,7 +46,7 @@ The output figures and data are also included in each subdirectory of the "examp
 
 The python example codes were run using python3 and PythTB version 1.7.2.
 
-Note that the examples (and the three-dimensional examples in particular) are quite computationally intensive. 
+Note that the examples (and the 3D examples in particular) are quite computationally intensive. 
 ## References
 
 Please cite the following papers when using this package:
