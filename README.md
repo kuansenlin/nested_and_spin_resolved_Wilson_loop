@@ -51,11 +51,11 @@ Note that the examples (and the 3D examples in particular) are quite computation
 
 Please cite the following papers when using this package:
 
-[1] B. J. Wieder and B. A. Bernevig, The axion insulator as a pump of fragile topology, arXiv:1810.02373
+[1] B. J. Wieder and B. A. Bernevig, The axion insulator as a pump of fragile topology, arXiv:1810.02373.
 
-[2] B. J. Wieder, Z. Wang, J. Cano, X. Dai, L. M. Schoop, B. Bradlyn, and B. A. Bernevig, Strong and fragile topological Dirac semimetals with higher-order Fermi arcs, Nat. Commun. 11, 627 (2020)
+[2] B. J. Wieder, Z. Wang, J. Cano, X. Dai, L. M. Schoop, B. Bradlyn, and B. A. Bernevig, Strong and fragile topological Dirac semimetals with higher-order Fermi arcs, Nat. Commun. 11, 627 (2020).
 
-[3] K.-S. Lin, G. Palumbo, Z. Guo, Y. Hwang, J. Blackburn, D. P. Shoemaker, F. Mahmood, Z. Wang, G. A. Fiete, B. J. Wieder, and B. Bradlyn, Spin-resolved topology and partial axion angles in three-dimensional insulators, arXiv:2207.10099
+[3] K.-S. Lin, G. Palumbo, Z. Guo, Y. Hwang, J. Blackburn, D. P. Shoemaker, F. Mahmood, Z. Wang, G. A. Fiete, B. J. Wieder, and B. Bradlyn, Spin-resolved topology and partial axion angles in three-dimensional insulators, Nature Communications 15, 550 (2024).
 
 ## License
 
