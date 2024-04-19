@@ -47,6 +47,7 @@ The output figures and data are also included in each subdirectory of the "examp
 The python example codes were run using python3 and PythTB version 1.7.2.
 
 Note that the examples (and the 3D examples in particular) are quite computationally intensive. 
+
 ## References
 
 Please cite the following papers when using this package:
@@ -56,6 +57,10 @@ Please cite the following papers when using this package:
 [2] B. J. Wieder, Z. Wang, J. Cano, X. Dai, L. M. Schoop, B. Bradlyn, and B. A. Bernevig, Strong and fragile topological Dirac semimetals with higher-order Fermi arcs, Nat. Commun. 11, 627 (2020).
 
 [3] K.-S. Lin, G. Palumbo, Z. Guo, Y. Hwang, J. Blackburn, D. P. Shoemaker, F. Mahmood, Z. Wang, G. A. Fiete, B. J. Wieder, and B. Bradlyn, Spin-resolved topology and partial axion angles in three-dimensional insulators, Nat. Commun. 15, 550 (2024).
+
+## Acknowledgments
+
+Development of the nested Wilson loop code module was supported by the National Science Foundation under Grant DMR-1945058 and the Air Force Office for Scientific Research under award number FA9550-21-1-0131. The development of the spin-resolved topology code was supported by the U.S. Department of Energy, Office of Basic Energy Sciences, Energy Frontier Research Center for Quantum Sensing and Quantum Materials through Grant No. DE-SC0021238.  The development of both code modules was further supported European Union’s Horizon Europe research and innovation program through Grant ERC-StG-101117835-TopoRosetta.
 
 ## License
 
