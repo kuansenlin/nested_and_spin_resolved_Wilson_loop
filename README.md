@@ -60,7 +60,7 @@ Please cite the following papers when using this package:
 
 ## Acknowledgments
 
-Development of the nested Wilson loop code module was supported by the National Science Foundation under Grant DMR-1945058 and the Air Force Office for Scientific Research under award number FA9550-21-1-0131. The development of the spin-resolved topology code was supported by the U.S. Department of Energy, Office of Basic Energy Sciences, Energy Frontier Research Center for Quantum Sensing and Quantum Materials through Grant No. DE-SC0021238.  The development of both code modules was further supported European Union’s Horizon Europe research and innovation program through Grant ERC-StG-101117835-TopoRosetta.
+Development of the nested Wilson loop code module was supported by the National Science Foundation under Grant DMR-1945058 and the Air Force Office for Scientific Research under award number FA9550-21-1-0131. The development of the spin-resolved topological analysis code module was supported by the U.S. Department of Energy, Office of Basic Energy Sciences, Energy Frontier Research Center for Quantum Sensing and Quantum Materials through Grant No. DE-SC0021238.  The development of both code modules was further supported European Union’s Horizon Europe research and innovation program through Grant ERC-StG-101117835-TopoRosetta.
 
 ## License
 
